@@ -36,7 +36,7 @@ public class DomainValidationTest
 
         action.Should()
             .Throw<EntityValidationException>()
-            .WithMessage($"{fieldName} should not be null");
+            .WithMessage($"{fieldName} should not be null.");
     }
 
     [Theory(DisplayName = nameof(GuidNotNullOrEmptyThrowWhenNullOrEmpty))]
@@ -52,7 +52,7 @@ public class DomainValidationTest
             () => DomainValidation.NotNullOrEmpty(value, fieldName);
 
         action.Should().Throw<EntityValidationException>()
-            .WithMessage($"{fieldName} should not be empty or null");
+            .WithMessage($"{fieldName} should not be empty or null.");
     }
 
 
@@ -69,7 +69,7 @@ public class DomainValidationTest
             () => DomainValidation.NotNullOrEmpty(target, fieldName);
 
         action.Should().Throw<EntityValidationException>()
-            .WithMessage($"{fieldName} should not be empty or null");
+            .WithMessage($"{fieldName} should not be empty or null.");
     }
 
     [Fact(DisplayName = nameof(NotNullOrEmptyOk))]
