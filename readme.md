@@ -1,0 +1,1 @@
+[![.NET](https://github.com/CarlosEduardoGui/FC.Codeflix.Catalog.Api/actions/workflows/dotnet.yml/badge.svg?branch=master)](https://github.com/CarlosEduardoGui/FC.Codeflix.Catalog.Api/actions/workflows/dotnet.yml)
