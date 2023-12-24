@@ -1,12 +1,4 @@
-﻿using Bogus.DataSets;
-using FC.Codeflix.Catalog.Domain.Exceptions;
-using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DomainEntity = FC.Codeflix.Catalog.Domain.Entity;
+﻿using FC.Codeflix.Catalog.Domain.Exceptions;
 
 namespace FC.Codeflix.Catalog.UnitTests.Domain.Entity.Category;
 [Collection(nameof(CategoryTestFixture))]

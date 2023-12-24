@@ -1,12 +1,4 @@
-﻿using Bogus;
-using FC.Codeflix.Catalog.UnitTests.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DomainEntity = FC.Codeflix.Catalog.Domain.Entity;
-
+﻿using FC.Codeflix.Catalog.UnitTests.Common;
 
 namespace FC.Codeflix.Catalog.UnitTests.Domain.Entity.Category;
 [CollectionDefinition(nameof(CategoryTestFixture))]
@@ -39,8 +31,8 @@ public class CategoryTestFixture : BaseFixture
     }
 
     public DomainEntity.Category GetValidCategory() =>
-        new(Guid.NewGuid(), 
-            GetValidCategoryName(), 
+        new(Guid.NewGuid(),
+            GetValidCategoryName(),
             GetValidCategoryDescription(),
             DateTime.Now,
             GetRandomBoolean());

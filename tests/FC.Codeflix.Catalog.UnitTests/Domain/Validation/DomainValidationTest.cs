@@ -2,11 +2,6 @@
 using FC.Codeflix.Catalog.Domain.Exceptions;
 using FC.Codeflix.Catalog.Domain.Validation;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FC.Codeflix.Catalog.UnitTests.Domain.Validation;
 public class DomainValidationTest

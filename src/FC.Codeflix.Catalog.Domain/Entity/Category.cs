@@ -1,9 +1,4 @@
 ﻿using FC.Codeflix.Catalog.Domain.Validation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FC.Codeflix.Catalog.Domain.Entity;
 public class Category
@@ -15,9 +10,9 @@ public class Category
     public bool IsActive { get; private set; }
 
     public Category(
-        Guid id, 
-        string? name, 
-        string? description, 
+        Guid id,
+        string? name,
+        string? description,
         DateTime createdAt,
         bool isActive = true
     )
