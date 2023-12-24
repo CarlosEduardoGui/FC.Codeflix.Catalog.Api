@@ -8,8 +8,8 @@ public class CategoryUseCaseTestFixtureCollection : ICollectionFixture<CategoryU
 
 public class CategoryUseCaseFixture : BaseFixture
 {
-    public static Mock<ICategoryRepository> GetMockRepository()
-        => new();
+    public static ICategoryRepository GetMockRepository()
+        => Substitute.For<ICategoryRepository>();
 
     public string GetValidName()
         => Faker.Commerce.Categories(1)[0];

@@ -16,15 +16,14 @@ public class SaveCategoryTest
     public async Task SaveValidCategory()
     {
         var repository = CategoryUseCaseFixture.GetMockRepository();
-        var useCase = new UseCaseCategory.SaveCategory.SaveCategory(repository.Object);
+        var useCase = new UseCaseCategory.SaveCategory.SaveCategory(repository);
         var input = _fixture.GetValidInput();
 
         var output = await useCase.Handle(input, CancellationToken.None);
 
-        repository.Verify(x => x.SaveAsync(
-            It.IsAny<DomainEntity.Category>(),
-            It.IsAny<CancellationToken>()),
-            Times.Once
+        await repository.Received(1).SaveAsync(
+            Arg.Any<DomainEntity.Category>(),
+            Arg.Any<CancellationToken>()
         );
         output.Should().NotBeNull();
         output.Id.Should().Be(input.Id);
@@ -39,15 +38,14 @@ public class SaveCategoryTest
     public async Task SaveInvalidCategory()
     {
         var repository = CategoryUseCaseFixture.GetMockRepository();
-        var useCase = new UseCaseCategory.SaveCategory.SaveCategory(repository.Object);
+        var useCase = new UseCaseCategory.SaveCategory.SaveCategory(repository);
         var input = _fixture.GetInvalidInput();
 
         var action = async () => await useCase.Handle(input, CancellationToken.None);
 
-        repository.Verify(x => x.SaveAsync(
-            It.IsAny<DomainEntity.Category>(),
-            It.IsAny<CancellationToken>()),
-            Times.Never
+        await repository.DidNotReceive().SaveAsync(
+            Arg.Any<DomainEntity.Category>(),
+            Arg.Any<CancellationToken>()
         );
         await action.Should()
             .ThrowExactlyAsync<EntityValidationException>()

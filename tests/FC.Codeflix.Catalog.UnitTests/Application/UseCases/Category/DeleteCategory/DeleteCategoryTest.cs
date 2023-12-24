@@ -16,15 +16,13 @@ public class DeleteCategoryTest
     public async Task DeleteCategory()
     {
         var repository = CategoryUseCaseFixture.GetMockRepository();
-        var useCase = new UseCaseCategory.DeleteCategory.DeleteCategory(repository.Object);
+        var useCase = new UseCaseCategory.DeleteCategory.DeleteCategory(repository);
         var input = new DeleteCategoryInput(Guid.NewGuid());
 
         await useCase.Handle(input, CancellationToken.None);
 
-        repository.Verify(x => x.DeleteAsync(
-            input.Id,
-            It.IsAny<CancellationToken>()),
-            Times.Once
-        );
+        await repository
+            .Received(1)
+            .DeleteAsync(input.Id, Arg.Any<CancellationToken>());
     }
 }
