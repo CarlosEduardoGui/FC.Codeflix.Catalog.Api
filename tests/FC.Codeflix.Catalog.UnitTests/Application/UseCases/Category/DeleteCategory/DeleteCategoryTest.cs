@@ -1,10 +1,5 @@
 ﻿using FC.Codeflix.Catalog.Application.UseCases.Category.DeleteCategory;
 using FC.Codeflix.Catalog.UnitTests.Application.UseCases.Category.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FC.Codeflix.Catalog.UnitTests.Application.UseCases.Category.DeleteCategory;
 

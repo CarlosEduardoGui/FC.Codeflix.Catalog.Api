@@ -1,7 +1,5 @@
-﻿using Bogus;
-using FC.Codeflix.Catalog.Domain.Exceptions;
+﻿using FC.Codeflix.Catalog.Domain.Exceptions;
 using FC.Codeflix.Catalog.Domain.Validation;
-using FluentAssertions;
 
 namespace FC.Codeflix.Catalog.UnitTests.Domain.Validation;
 public class DomainValidationTest

@@ -1,6 +1,6 @@
 ﻿using FC.Codeflix.Catalog.Application.UseCases.Category.Common;
-using DomainEntity = FC.Codeflix.Catalog.Domain.Entity;
 using FC.Codeflix.Catalog.Domain.Repositories;
+using DomainEntity = FC.Codeflix.Catalog.Domain.Entity;
 
 
 namespace FC.Codeflix.Catalog.Application.UseCases.Category.SaveCategory;
