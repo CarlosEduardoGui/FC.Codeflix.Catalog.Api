@@ -14,6 +14,15 @@ public class CategoryUseCaseFixture : BaseFixture
     public string GetValidName()
         => Faker.Commerce.Categories(1)[0];
 
-    public string GetDescription()
+    public string GetValidDescription()
         => Faker.Commerce.ProductDescription();
+
+    public DomainEntity.Category GetValidCategory()
+        => new(
+                Guid.NewGuid(),
+                GetValidName(),
+                GetValidDescription(),
+                DateTime.Now,
+                GetRandomBoolean()
+            );
 }
