@@ -1,4 +1,5 @@
 ﻿using FC.Codeflix.Catalog.Domain.Exceptions;
+using FC.Codeflix.Catalog.UnitTests.Application.UseCases.Category.Common;
 
 namespace FC.Codeflix.Catalog.UnitTests.Application.UseCases.Category.SaveCategory;
 
@@ -14,7 +15,7 @@ public class SaveCategoryTest
     [Fact(DisplayName = nameof(SaveValidCategory))]
     public async Task SaveValidCategory()
     {
-        var repository = Common.CategoryUseCaseFixture.GetMockRepository();
+        var repository = CategoryUseCaseFixture.GetMockRepository();
         var useCase = new UseCaseCategory.SaveCategory.SaveCategory(repository.Object);
         var input = _fixture.GetValidInput();
 
@@ -37,7 +38,7 @@ public class SaveCategoryTest
     [Fact(DisplayName = nameof(SaveInvalidCategory))]
     public async Task SaveInvalidCategory()
     {
-        var repository = Common.CategoryUseCaseFixture.GetMockRepository();
+        var repository = CategoryUseCaseFixture.GetMockRepository();
         var useCase = new UseCaseCategory.SaveCategory.SaveCategory(repository.Object);
         var input = _fixture.GetInvalidInput();
 
