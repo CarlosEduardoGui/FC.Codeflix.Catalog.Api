@@ -43,6 +43,11 @@ public class CategoryTestFixture : BaseFixture, IDisposable
             DateTime.Now,
             GetRandomBoolean());
 
+    public IList<CategoryModel> GetCategoriesModelList(int count = 10)
+        => Enumerable.Range(1, count)
+            .Select(_ => CategoryModel.FromCategory(GetValidCategory()))
+            .ToList();
+
     private async Task CreateCategoryIndex()
     {
         var elasticClient = ServiceProvider.GetRequiredService<IElasticClient>();
