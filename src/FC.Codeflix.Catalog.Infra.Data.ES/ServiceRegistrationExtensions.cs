@@ -17,7 +17,6 @@ public static class ServiceRegistrationExtensions
                 .IndexName(ElasticsearchIndices.Category)
                 .IdProperty(p => p.Id)
             )
-            .EnableDebugMode()
             .PrettyJson()
             .ThrowExceptions()
             .RequestTimeout(TimeSpan.FromMinutes(2));

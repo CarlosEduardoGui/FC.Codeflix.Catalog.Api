@@ -63,10 +63,10 @@ public class CategoryRepository : ICategoryRepository
         => (orderBy.ToLower(), order) switch
         {
             ("name", SearchOrder.ASC) => sort => sort
-                            .Ascending(f => f.Name.Suffix("keyword"))
+                            .Ascending(f => f.Name.Suffix(SUFFIX_KEYWORD))
                             .Ascending(f => f.Id),
             ("name", SearchOrder.DESC) => sort => sort
-                            .Descending(f => f.Name.Suffix("keyword"))
+                            .Descending(f => f.Name.Suffix(SUFFIX_KEYWORD))
                             .Descending(f => f.Id),
             ("id", SearchOrder.ASC) => sort => sort
                             .Ascending(f => f.Id),
@@ -77,7 +77,7 @@ public class CategoryRepository : ICategoryRepository
             ("createdat", SearchOrder.DESC) => sort => sort
                             .Descending(f => f.CreatedAt),
             _ => sort => sort
-                            .Ascending(f => f.Name.Suffix("keyword"))
+                            .Ascending(f => f.Name.Suffix(SUFFIX_KEYWORD))
                             .Ascending(f => f.Id)
         };
 }

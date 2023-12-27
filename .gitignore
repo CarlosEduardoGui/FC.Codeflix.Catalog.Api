@@ -362,3 +362,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /.docker/es01/nodes/0
+/tests/FC.Codeflix.Catalog.IntegrationTests/.docker/es01_test/nodes/0

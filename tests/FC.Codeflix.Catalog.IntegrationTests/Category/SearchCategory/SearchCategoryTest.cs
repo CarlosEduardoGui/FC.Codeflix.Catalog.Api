@@ -93,7 +93,7 @@ public class SearchCategoryTest : IDisposable
             orderBy: orderBy,
             order: direction == "asc" ? SearchOrder.ASC : SearchOrder.DESC
         );
-        var expectedList = _fixture.CloneCategoryListOrdered(examples, orderBy, input.Order);
+        var expectedList = SearchCategoryTestFixture.CloneCategoryListOrdered(examples, orderBy, input.Order);
 
         var output = await mediator!.Send(input, CancellationToken.None);
 
