@@ -7,5 +7,5 @@ public interface IRepository<T> where T : class
 
     Task DeleteAsync(Guid id, CancellationToken cancellationToken);
 
-    Task<SearchOutput<T>> SearchAsync(SearchInput intput, CancellationToken cancellationToken);
+    Task<SearchOutput<T>> SearchAsync(SearchInput input, CancellationToken cancellationToken);
 }

@@ -45,7 +45,11 @@ public class CategoryTestFixture : BaseFixture, IDisposable
 
     public IList<CategoryModel> GetCategoriesModelList(int count = 10)
         => Enumerable.Range(1, count)
-            .Select(_ => CategoryModel.FromCategory(GetValidCategory()))
+            .Select(_ =>
+            {
+                Task.Delay(5).GetAwaiter().GetResult();
+                return CategoryModel.FromCategory(GetValidCategory());
+            })
             .ToList();
 
     private async Task CreateCategoryIndex()
