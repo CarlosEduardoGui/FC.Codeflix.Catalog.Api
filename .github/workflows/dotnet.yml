@@ -24,10 +24,10 @@ jobs:
     - name: Start containers
       run: docker-compose -f "tests/FC.Codeflix.Catalog.IntegrationTests/docker-compose.yml" up -d --build 
 
-    - name: Sleep for 15 seconds to wait Elasticsearch to be ready
+    - name: Sleep for 30 seconds to wait Elasticsearch to be ready
       uses: jakejarvis/wait-action@master
       with:
-        time: '15s'
+        time: '30s'
 
     - name: Restore dependencies
       run: dotnet restore
