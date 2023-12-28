@@ -18,9 +18,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FC.Codeflix.Catalog.Infra.Data.ES", "src\FC.Codeflix.Catalog.Infra.Data.ES\FC.Codeflix.Catalog.Infra.Data.ES.csproj", "{CBF46C34-39F7-4D2D-ABB8-06B79D149624}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FC.Codeflix.Catalog.Infra.Data.ES", "src\FC.Codeflix.Catalog.Infra.Data.ES\FC.Codeflix.Catalog.Infra.Data.ES.csproj", "{CBF46C34-39F7-4D2D-ABB8-06B79D149624}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FC.Codeflix.Catalog.IntegrationTests", "tests\FC.Codeflix.Catalog.IntegrationTests\FC.Codeflix.Catalog.IntegrationTests.csproj", "{45256633-93C6-4555-A1A2-8268EEB3D44D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FC.Codeflix.Catalog.IntegrationTests", "tests\FC.Codeflix.Catalog.IntegrationTests\FC.Codeflix.Catalog.IntegrationTests.csproj", "{45256633-93C6-4555-A1A2-8268EEB3D44D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FC.Codeflix.Catalog.Api", "src\FC.Codeflix.Catalog.Api\FC.Codeflix.Catalog.Api.csproj", "{0E1D09DC-E491-4965-B6B1-5C12256CA180}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +50,10 @@ Global
 		{45256633-93C6-4555-A1A2-8268EEB3D44D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45256633-93C6-4555-A1A2-8268EEB3D44D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45256633-93C6-4555-A1A2-8268EEB3D44D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E1D09DC-E491-4965-B6B1-5C12256CA180}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E1D09DC-E491-4965-B6B1-5C12256CA180}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E1D09DC-E491-4965-B6B1-5C12256CA180}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E1D09DC-E491-4965-B6B1-5C12256CA180}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +64,7 @@ Global
 		{C3C47935-CF7E-4E0E-A469-90422FD6328E} = {BF34F7F8-3C76-4447-AB40-06E992FEF4C6}
 		{CBF46C34-39F7-4D2D-ABB8-06B79D149624} = {BF34F7F8-3C76-4447-AB40-06E992FEF4C6}
 		{45256633-93C6-4555-A1A2-8268EEB3D44D} = {D07B36B7-BCC0-4393-A786-22E718693482}
+		{0E1D09DC-E491-4965-B6B1-5C12256CA180} = {BF34F7F8-3C76-4447-AB40-06E992FEF4C6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {37993D80-6DDC-41AF-A7E1-5327BF6C298C}
