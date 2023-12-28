@@ -28,6 +28,15 @@ jobs:
       uses: jakejarvis/wait-action@master
       with:
         time: '30s'
+    
+    - name: URL Elasticsearch Health Check
+      uses: Jtalk/url-health-check-action@v3.2 
+      with:
+        url: http://localhost:9200
+        follow-redirect: false
+        max-attempts: 3
+        retry-delay: 8s
+        retry-all: true
 
     - name: Restore dependencies
       run: dotnet restore
