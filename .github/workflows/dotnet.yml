@@ -33,9 +33,8 @@ jobs:
       uses: Jtalk/url-health-check-action@v3.2 
       with:
         url: http://localhost:9200
-        follow-redirect: false
-        max-attempts: 3
-        retry-delay: 8s
+        max-attempts: 5
+        retry-delay: 10s
         retry-all: true
 
     - name: Restore dependencies
