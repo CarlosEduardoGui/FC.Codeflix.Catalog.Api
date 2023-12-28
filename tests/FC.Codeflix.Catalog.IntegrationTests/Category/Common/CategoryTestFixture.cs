@@ -1,5 +1,4 @@
-﻿using FC.Codeflix.Catalog.Infra.Data.ES.Models;
-using FC.Codeflix.Catalog.Infra.Data.ES;
+﻿using FC.Codeflix.Catalog.Infra.Data.ES;
 using Elasticsearch.Net;
 
 namespace FC.Codeflix.Catalog.IntegrationTests.Category.Common;
@@ -9,6 +8,8 @@ public class CategoryFixtureCollection : ICollectionFixture<CategoryTestFixture>
 
 public class CategoryTestFixture : BaseFixture, IDisposable
 {
+    private const string SUFFIX_KEYWORD = "keyword";
+
     public CategoryTestFixture() : base()
     {
         CreateCategoryIndex().GetAwaiter().GetResult();
@@ -65,7 +66,7 @@ public class CategoryTestFixture : BaseFixture, IDisposable
                         .Name(category => category.Name)
                         .Fields(fs => fs
                             .Keyword(k => k
-                                .Name(category => category.Name.Suffix("keywork")))
+                                .Name(category => category.Name.Suffix(SUFFIX_KEYWORD)))
                         )
                     )
                     .Text(t => t
