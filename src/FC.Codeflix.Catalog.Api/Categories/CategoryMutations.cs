@@ -1,4 +1,4 @@
-﻿using FC.Codeflix.Catalog.Application.UseCases.Category.Common;
+﻿using FC.Codeflix.Catalog.Application.UseCases.Category.DeleteCategory;
 using FC.Codeflix.Catalog.Application.UseCases.Category.SaveCategory;
 using MediatR;
 
@@ -6,7 +6,7 @@ namespace FC.Codeflix.Catalog.Api.Categories;
 
 public class CategoryMutations
 {
-    public async Task<CategoryModelOutput> SaveCategoryAsync(
+    public async Task<CategoryPayload> SaveCategoryAsync(
         SaveCategoryInput input,
         [Service] IMediator mediator,
         CancellationToken cancellationToken
@@ -14,6 +14,17 @@ public class CategoryMutations
     {
         var output = await mediator.Send(input, cancellationToken);
 
-        return output;
+        return CategoryPayload.FromCategoryModelOutput(output);
+    }
+
+    public async Task<bool> DeleteCategoryAsync(
+        Guid id,
+        [Service] IMediator mediator,
+        CancellationToken cancellationToken
+    )
+    {
+        await mediator.Send(new DeleteCategoryInput(id), cancellationToken);
+
+        return true;
     }
 }
