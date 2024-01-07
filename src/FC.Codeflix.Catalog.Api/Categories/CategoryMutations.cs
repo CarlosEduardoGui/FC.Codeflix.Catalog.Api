@@ -4,6 +4,7 @@ using MediatR;
 
 namespace FC.Codeflix.Catalog.Api.Categories;
 
+[ExtendObjectType(OperationTypeNames.Mutation)]
 public class CategoryMutations
 {
     public async Task<CategoryPayload> SaveCategoryAsync(
