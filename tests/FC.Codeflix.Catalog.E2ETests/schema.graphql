@@ -1,0 +1,46 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  categories(page: Int! = 1 perPage: Int! = 10 search: String! = "" sort: String! = "" direction: SearchOrder! = ASC): SearchCategoryPayload!
+}
+
+type Mutation {
+  saveCategory(input: SaveCategoryInput!): CategoryPayload!
+  deleteCategory(id: UUID!): Boolean!
+}
+
+enum SearchOrder {
+  ASC
+  DESC
+}
+
+type SearchCategoryPayload {
+  currentPage: Int!
+  perPage: Int!
+  total: Int!
+  items: [CategoryPayload!]!
+}
+
+type CategoryPayload {
+  id: UUID!
+  name: String!
+  description: String!
+  createdAt: DateTime!
+  isActive: Boolean!
+}
+
+input SaveCategoryInput {
+  id: UUID!
+  name: String!
+  description: String!
+  createdAt: DateTime!
+  isActive: Boolean!
+}
+
+scalar UUID
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime

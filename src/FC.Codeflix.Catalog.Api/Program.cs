@@ -36,3 +36,5 @@ app.MapControllers();
 app.MapGraphQL();
 
 app.Run();
+
+public partial class Program { }

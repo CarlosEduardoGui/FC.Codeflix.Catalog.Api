@@ -1,0 +1,9 @@
+mutation SaveCategory($input: SaveCategoryInput!) {
+  saveCategory(input: $input) {
+	id
+	name
+	description
+	isActive
+	createdAt
+  }
+}
