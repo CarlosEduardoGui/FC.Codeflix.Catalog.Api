@@ -9,7 +9,10 @@ public static class ElasticSearchOperations
     private const string SUFFIX_KEYWORD = "keyword";
 
     public static async Task CreateCategoryIndex(IElasticClient esClient)
-        => await esClient.Indices.CreateAsync(
+    {
+        DeleteCategoryIndex(esClient);
+
+        await esClient.Indices.CreateAsync(
             ElasticsearchIndices.Category,
             c => c
                 .Map<CategoryModel>(m => m
@@ -36,11 +39,12 @@ public static class ElasticSearchOperations
                     )
                 )
         );
+    }
 
     public static void DeleteAllCategoriesDocuments(IElasticClient esClient)
      => esClient.DeleteByQuery<CategoryModel>(del => del
-                                                                                         .Query(q => q.QueryString(qs => qs.Query("*")))
-                                                                                         .Conflicts(Conflicts.Proceed)
+            .Query(q => q.QueryString(qs => qs.Query("*")))
+            .Conflicts(Conflicts.Proceed)
         );
 
     public static void DeleteCategoryIndex(IElasticClient esClient)
