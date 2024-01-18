@@ -1,7 +1,9 @@
-﻿namespace FC.Codeflix.Catalog.UnitTests.Common;
-public abstract class BaseFixture
+﻿using Bogus;
+
+namespace FC.Codeflix.Catalog.Tests.Shared;
+public abstract class DataGeneratorBase
 {
-    protected BaseFixture()
+    protected DataGeneratorBase()
     {
         Faker = new Faker("pt_BR");
     }

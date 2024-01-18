@@ -17,8 +17,8 @@ public class SearchCategoryTestFixture : CategoryTestFixture
         }).ToList();
 
     public static IList<CategoryModel> CloneCategoryListOrdered(
-        IList<CategoryModel> examples, 
-        string orderBy, 
+        IList<CategoryModel> examples,
+        string orderBy,
         SearchOrder order
     )
     {

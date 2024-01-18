@@ -2,12 +2,12 @@
 
 namespace FC.Codeflix.Catalog.E2ETests.GraphQL.SaveCategory;
 
-[Collection(nameof(CategoryTestFixture))]
+[Collection(nameof(SaveCategoryTestFixture))]
 public class SaveCategoryTest : IDisposable
 {
-    private readonly CategoryTestFixture _fixture;
+    private readonly SaveCategoryTestFixture _fixture;
 
-    public SaveCategoryTest(CategoryTestFixture fixture)
+    public SaveCategoryTest(SaveCategoryTestFixture fixture)
         => _fixture = fixture;
 
     [Trait("E2E/GraphQL", "SaveCategory")]
@@ -16,14 +16,7 @@ public class SaveCategoryTest : IDisposable
     {
         var serviceProvider = _fixture.WebbAppFactory.Services;
         var elasticClient = serviceProvider.GetRequiredService<IElasticClient>();
-        var input = new SaveCategoryInput()
-        {
-            Id = Guid.NewGuid(),
-            Name = "Action",
-            Description = "Action Test",
-            CreatedAt = DateTime.UtcNow.Date,
-            IsActive = true
-        };
+        var input = _fixture.GetValidInput();
 
         var output = await _fixture.GraphQLClient.SaveCategory.ExecuteAsync(input, CancellationToken.None);
 
@@ -53,14 +46,7 @@ public class SaveCategoryTest : IDisposable
         var serviceProvider = _fixture.WebbAppFactory.Services;
         var elasticClient = serviceProvider.GetRequiredService<IElasticClient>();
         var expectedMessage = $"Name should not be empty or null.";
-        var input = new SaveCategoryInput()
-        {
-            Id = Guid.NewGuid(),
-            Name = string.Empty,
-            Description = "Action Test",
-            CreatedAt = DateTime.Now.Date,
-            IsActive = true
-        };
+        var input = _fixture.GetInvalidInput();
 
         var output = await _fixture.GraphQLClient.SaveCategory.ExecuteAsync(input, CancellationToken.None);
 

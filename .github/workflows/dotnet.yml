@@ -22,7 +22,7 @@ jobs:
         dotnet-version: 7.0.x
     
     - name: Start containers
-      run: docker-compose -f "tests/FC.Codeflix.Catalog.IntegrationTests/docker-compose.yml" up -d --build 
+      run: docker-compose -f "tests/FC.Codeflix.Catalog.Tests.Shared/docker-compose.yml" up -d --build 
 
     - name: Sleep for 30 seconds to wait Elasticsearch to be ready
       uses: jakejarvis/wait-action@master
@@ -32,7 +32,7 @@ jobs:
     - name: URL Elasticsearch Health Check
       uses: Jtalk/url-health-check-action@v3.2 
       with:
-        url: http://localhost:9200
+        url: http://localhost:9201
         max-attempts: 5
         retry-delay: 10s
         retry-all: true

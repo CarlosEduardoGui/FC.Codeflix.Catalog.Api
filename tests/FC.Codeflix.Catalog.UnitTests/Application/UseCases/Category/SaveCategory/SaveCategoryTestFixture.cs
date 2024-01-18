@@ -10,17 +10,17 @@ public class SaveCategoryTestFixture : CategoryUseCaseFixture
 {
     public SaveCategoryInput GetValidInput()
         => new(Guid.NewGuid(),
-                GetValidName(),
-                GetValidDescription(),
+                DataGenerator.GetValidCategoryName(),
+                DataGenerator.GetValidCategoryDescription(),
                 DateTime.Now,
-                GetRandomBoolean()
+                DataGenerator.GetRandomBoolean()
             );
 
     public SaveCategoryInput GetInvalidInput()
         => new(Guid.NewGuid(),
                 null,
-                GetValidDescription(),
+                DataGenerator.GetValidCategoryDescription(),
                 DateTime.Now,
-                GetRandomBoolean()
+                DataGenerator.GetRandomBoolean()
             );
 }

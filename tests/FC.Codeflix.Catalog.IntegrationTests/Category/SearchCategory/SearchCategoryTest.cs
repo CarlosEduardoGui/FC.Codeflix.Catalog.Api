@@ -31,7 +31,7 @@ public class SearchCategoryTest : IDisposable
     {
         var serviceProvider = _fixture.ServiceProvider;
         var mediator = serviceProvider.GetService<IMediator>();
-        var elasticClient = serviceProvider.GetRequiredService<IElasticClient>();
+        var elasticClient = _fixture.ElasticClient;
         var categoriesNameList = new List<string>()
         {
             "Action",
@@ -83,7 +83,7 @@ public class SearchCategoryTest : IDisposable
     {
         var serviceProvider = _fixture.ServiceProvider;
         var mediator = serviceProvider.GetService<IMediator>();
-        var elasticClient = serviceProvider.GetRequiredService<IElasticClient>();
+        var elasticClient = _fixture.ElasticClient;
         var examples = _fixture.GetCategoriesModelList();
         await elasticClient.IndexManyAsync(examples);
         await elasticClient.Indices.RefreshAsync(ElasticsearchIndices.Category);
@@ -116,5 +116,5 @@ public class SearchCategoryTest : IDisposable
     }
 
     public void Dispose()
-        => _fixture.DeleteElesticsearchAllDocument();
+        => _fixture.DeleteAll();
 }

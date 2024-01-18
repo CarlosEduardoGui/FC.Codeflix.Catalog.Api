@@ -1,7 +1,7 @@
-using FC.Codeflix.Catalog.Application;
-using FC.Codeflix.Catalog.Infra.Data.ES;
 using FC.Codeflix.Catalog.Api.Categories;
 using FC.Codeflix.Catalog.Api.Filters;
+using FC.Codeflix.Catalog.Application;
+using FC.Codeflix.Catalog.Infra.Data.ES;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,5 +1,4 @@
 ﻿using FC.Codeflix.Catalog.Domain.Exceptions;
-using FC.Codeflix.Catalog.Infra.Data.ES.Models;
 
 namespace FC.Codeflix.Catalog.IntegrationTests.Category.SaveCategory;
 
@@ -17,7 +16,7 @@ public class SaveCategoryTest : IDisposable
     {
         var serviceProvider = _fixture.ServiceProvider;
         var mediator = serviceProvider.GetRequiredService<IMediator>();
-        var elasticClient = serviceProvider.GetRequiredService<IElasticClient>();
+        var elasticClient = _fixture.ElasticClient;
         var input = _fixture.GetValidInput();
 
         var output = await mediator.Send(input, CancellationToken.None);
@@ -46,7 +45,7 @@ public class SaveCategoryTest : IDisposable
     {
         var serviceProvider = _fixture.ServiceProvider;
         var mediator = serviceProvider.GetRequiredService<IMediator>();
-        var elasticClient = serviceProvider.GetRequiredService<IElasticClient>();
+        var elasticClient = _fixture.ElasticClient;
         var input = _fixture.GetInvalidInput();
         var expectedMessage = $"Name should not be empty or null.";
 
@@ -61,5 +60,5 @@ public class SaveCategoryTest : IDisposable
     }
 
     public void Dispose()
-        => _fixture.DeleteElesticsearchAllDocument();
+        => _fixture.DeleteAll();
 }

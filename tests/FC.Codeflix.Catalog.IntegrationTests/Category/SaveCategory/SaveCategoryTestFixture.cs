@@ -9,17 +9,17 @@ public class SaveCategoryTestFixture : CategoryTestFixture
 {
     public SaveCategoryInput GetValidInput()
         => new(Guid.NewGuid(),
-                GetValidCategoryName(),
-                GetValidCategoryDescription(),
+                DataGenerator.GetValidCategoryName(),
+                DataGenerator.GetValidCategoryDescription(),
                 DateTime.Now,
-                GetRandomBoolean()
+                DataGenerator.GetRandomBoolean()
             );
 
     public SaveCategoryInput GetInvalidInput()
         => new(Guid.NewGuid(),
                 null,
-                GetValidCategoryDescription(),
+                DataGenerator.GetValidCategoryDescription(),
                 DateTime.Now,
-                GetRandomBoolean()
+                DataGenerator.GetRandomBoolean()
             );
 }

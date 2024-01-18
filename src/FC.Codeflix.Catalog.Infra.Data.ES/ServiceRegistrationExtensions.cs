@@ -1,8 +1,8 @@
-﻿using FC.Codeflix.Catalog.Infra.Data.ES.Repositories;
+﻿using FC.Codeflix.Catalog.Domain.Repositories;
 using FC.Codeflix.Catalog.Infra.Data.ES.Models;
-using Microsoft.Extensions.DependencyInjection;
-using FC.Codeflix.Catalog.Domain.Repositories;
+using FC.Codeflix.Catalog.Infra.Data.ES.Repositories;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Nest;
 
 namespace FC.Codeflix.Catalog.Infra.Data.ES;

@@ -1,7 +1,6 @@
 ﻿using FC.Codeflix.Catalog.Application.UseCases.Category.DeleteCategory;
-using FC.Codeflix.Catalog.IntegrationTests.Category.Common;
-using FC.Codeflix.Catalog.Infra.Data.ES.Models;
 using FC.Codeflix.Catalog.Domain.Exceptions;
+using FC.Codeflix.Catalog.IntegrationTests.Category.Common;
 
 namespace FC.Codeflix.Catalog.IntegrationTests.Category.DeleteCategory;
 
@@ -10,7 +9,7 @@ public class DeleteCategoryTest : IDisposable
 {
     private readonly CategoryTestFixture _fixture;
 
-    public DeleteCategoryTest(CategoryTestFixture fixture) 
+    public DeleteCategoryTest(CategoryTestFixture fixture)
         => _fixture = fixture;
 
     [Trait("Integration", "ElasticSearch - DeleteCategory")]
@@ -19,7 +18,7 @@ public class DeleteCategoryTest : IDisposable
     {
         var serviceProvider = _fixture.ServiceProvider;
         var mediator = serviceProvider.GetRequiredService<IMediator>();
-        var elasticClient = serviceProvider.GetRequiredService<IElasticClient>();
+        var elasticClient = _fixture.ElasticClient;
         var categoriesExample = _fixture.GetCategoriesModelList();
         await elasticClient.IndexManyAsync(categoriesExample);
         var randomCategoryIdToDelete = new Random().Next(categoriesExample.Count);
@@ -38,13 +37,13 @@ public class DeleteCategoryTest : IDisposable
     {
         var serviceProvider = _fixture.ServiceProvider;
         var mediator = serviceProvider.GetRequiredService<IMediator>();
-        var elasticClient = serviceProvider.GetRequiredService<IElasticClient>();
+        var elasticClient = _fixture.ElasticClient;
         var categoriesExample = _fixture.GetCategoriesModelList();
         await elasticClient.IndexManyAsync(categoriesExample);
         var randomCategoryId = Guid.NewGuid();
         var input = new DeleteCategoryInput(randomCategoryId);
 
-        var action = async() => await mediator.Send(input, CancellationToken.None);
+        var action = async () => await mediator.Send(input, CancellationToken.None);
 
         await action.Should()
             .ThrowExactlyAsync<NotFoundException>()
@@ -52,5 +51,5 @@ public class DeleteCategoryTest : IDisposable
     }
 
     public void Dispose()
-        => _fixture.DeleteElesticsearchAllDocument();
+        => _fixture.DeleteAll();
 }

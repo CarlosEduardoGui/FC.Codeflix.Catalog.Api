@@ -15,8 +15,8 @@ public class SearchCategoryTestFixture : CategoryUseCaseFixture
         return new SearchCategoryInput(
             random.Next(1, 10),
             random.Next(10, 20),
-            Faker.Commerce.ProductName(),
-            Faker.Commerce.ProductName(),
+            DataGenerator.Faker.Commerce.ProductName(),
+            DataGenerator.Faker.Commerce.ProductName(),
             random.Next(0, 2) == 0 ? SearchOrder.ASC : SearchOrder.DESC
         );
     }
