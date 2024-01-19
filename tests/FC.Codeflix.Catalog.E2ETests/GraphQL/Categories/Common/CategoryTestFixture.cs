@@ -1,4 +1,5 @@
 ﻿using FC.Codeflix.Catalog.E2ETests.Base;
+using FC.Codeflix.Catalog.Infra.Data.ES.Models;
 using FC.Codeflix.Catalog.Tests.Shared;
 using Microsoft.AspNetCore.Mvc.Testing;
 
@@ -37,4 +38,7 @@ public class CategoryTestFixture : IDisposable
 
     public void Dispose()
         => ElasticSearchOperations.DeleteCategoryIndex(ElasticClient);
+
+    public IList<CategoryModel> GetCategoriesModelList(int count = 10)
+        => DataGenerator.GetCategoriesModelList(count);
 }
