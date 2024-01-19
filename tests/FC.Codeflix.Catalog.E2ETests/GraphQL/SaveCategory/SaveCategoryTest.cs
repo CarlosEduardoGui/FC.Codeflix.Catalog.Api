@@ -39,7 +39,7 @@ public class SaveCategoryTest : IDisposable
         output.Data!.SaveCategory.CreatedAt.Should().Be(input.CreatedAt);
     }
 
-    [Trait("Integration", "ElasticSearch - SaveCategory")]
+    [Trait("E2E/GraphQL", "SaveCategory")]
     [Fact(DisplayName = nameof(SaveValidCategory_WhenInputIsInvalid_ThrowsException))]
     public async Task SaveValidCategory_WhenInputIsInvalid_ThrowsException()
     {

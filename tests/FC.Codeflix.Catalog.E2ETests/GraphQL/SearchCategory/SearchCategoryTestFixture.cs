@@ -1,7 +1,7 @@
-﻿using FC.Codeflix.Catalog.Domain.Repositories.Dtos;
-using FC.Codeflix.Catalog.IntegrationTests.Category.Common;
+﻿using RepositoryDTO = FC.Codeflix.Catalog.Domain.Repositories.Dtos;
+using FC.Codeflix.Catalog.Infra.Data.ES.Models;
 
-namespace FC.Codeflix.Catalog.IntegrationTests.Category.SearchCategory;
+namespace FC.Codeflix.Catalog.E2ETests.GraphQL.SearchCategory;
 
 [CollectionDefinition(nameof(SearchCategoryTestFixture))]
 public class SearchCategoryTestFixtureCollection : ICollectionFixture<SearchCategoryTestFixture> { }
@@ -14,6 +14,7 @@ public class SearchCategoryTestFixture : CategoryTestFixture
     public IList<CategoryModel> CloneCategoryListOrdered(
         IList<CategoryModel> examples,
         string orderBy,
-        SearchOrder order
-    ) => DataGenerator.CloneCategoryListOrdered(examples, orderBy, order);
+        RepositoryDTO.SearchOrder order
+    )
+        => DataGenerator.CloneCategoryListOrdered(examples, orderBy, order);
 }

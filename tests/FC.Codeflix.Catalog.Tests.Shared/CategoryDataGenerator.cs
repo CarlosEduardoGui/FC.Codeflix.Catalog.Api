@@ -1,4 +1,5 @@
-﻿using FC.Codeflix.Catalog.Infra.Data.ES.Models;
+﻿using FC.Codeflix.Catalog.Domain.Repositories.Dtos;
+using FC.Codeflix.Catalog.Infra.Data.ES.Models;
 using DomainEntity = FC.Codeflix.Catalog.Domain.Entity;
 
 namespace FC.Codeflix.Catalog.Tests.Shared;
@@ -35,7 +36,7 @@ public class CategoryDataGenerator : DataGeneratorBase
         new(Guid.NewGuid(),
             GetValidCategoryName(),
             GetValidCategoryDescription(),
-            DateTime.Now,
+            DateTime.UtcNow.Date,
             GetRandomBoolean());
 
     public IList<CategoryModel> GetCategoriesModelList(int count = 10)
@@ -46,4 +47,34 @@ public class CategoryDataGenerator : DataGeneratorBase
                 return CategoryModel.FromCategory(GetValidCategory());
             })
             .ToList();
+
+    public IList<CategoryModel> GetCategoriesModelList(IEnumerable<string> categoriesName)
+        => categoriesName.Select(name =>
+        {
+            Task.Delay(5).GetAwaiter().GetResult();
+            var category = CategoryModel.FromCategory(GetValidCategory());
+            category.Name = name;
+            return category;
+        }).ToList();
+
+    public IList<CategoryModel> CloneCategoryListOrdered(
+        IList<CategoryModel> examples,
+        string orderBy,
+        SearchOrder order
+    )
+    {
+        var listClone = new List<CategoryModel>(examples);
+        var orderEnumerable = (orderBy.ToLower(), order) switch
+        {
+            ("name", SearchOrder.ASC) => listClone.OrderBy(x => x.Name).ThenBy(x => x.Id),
+            ("name", SearchOrder.DESC) => listClone.OrderByDescending(x => x.Name).ThenByDescending(x => x.Id),
+            ("id", SearchOrder.ASC) => listClone.OrderBy(x => x.Id),
+            ("id", SearchOrder.DESC) => listClone.OrderByDescending(x => x.Id),
+            ("createdat", SearchOrder.ASC) => listClone.OrderBy(x => x.CreatedAt),
+            ("createdat", SearchOrder.DESC) => listClone.OrderByDescending(x => x.CreatedAt),
+            _ => listClone.OrderBy(x => x.Name).ThenBy(x => x.Id),
+        };
+
+        return orderEnumerable.ToList();
+    }
 }
