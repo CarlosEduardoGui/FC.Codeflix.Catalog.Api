@@ -64,59 +64,51 @@ public class SearchCategoryTest : IDisposable
         }
     }
 
-    [Trait("E2E/GraphQL", "SearchCategory")]
-    [Theory(DisplayName = nameof(SearchCategory_WhenReceivesValidInput_ReturnsOrderedList))]
+    [Theory(DisplayName = nameof(SearchCategory_WhenReceivesValidSearchInput_ReturnOrderedList))]
+    [Trait("E2E/GraphQL", "[Category] Search")]
     [InlineData("name", "asc")]
     [InlineData("name", "desc")]
     [InlineData("id", "asc")]
     [InlineData("id", "desc")]
-    [InlineData("createdAt", "asc")]
-    [InlineData("createdAt", "desc")]
+    [InlineData("createdat", "asc")]
+    [InlineData("createdat", "desc")]
     [InlineData("", "desc")]
-    public async Task SearchCategory_WhenReceivesValidInput_ReturnsOrderedList(string orderBy, string direction)
+    public async Task SearchCategory_WhenReceivesValidSearchInput_ReturnOrderedList(
+        string orderBy,
+        string direction)
     {
         var elasticClient = _fixture.ElasticClient;
         var examples = _fixture.GetCategoriesModelList();
         await elasticClient.IndexManyAsync(examples);
         await elasticClient.Indices.RefreshAsync(ElasticsearchIndices.Category);
-        var page = 1;
+        const int page = 1;
         var perPage = examples.Count;
-        var directionGraphQL = direction == "asc"
-            ? SearchOrder.Asc
-            : SearchOrder.Desc;
-        var directionRepository = direction == "asc"
-            ? RepositoryDTO.SearchOrder.ASC
-            : RepositoryDTO.SearchOrder.DESC;
-        var expectedList = _fixture.CloneCategoryListOrdered(examples, orderBy, directionRepository);
+        var directionGraphql = direction == "asc" ? SearchOrder.Asc : SearchOrder.Desc;
+        var directionRepository = direction == "asc" ?
+            RepositoryDTO.SearchOrder.ASC :
+            RepositoryDTO.SearchOrder.DESC;
 
-        var output = await _fixture
-            .GraphQLClient
-            .SearchCategory
-            .ExecuteAsync(
-                page,
-                perPage,
-                "",
-                orderBy,
-                directionGraphQL,
-                CancellationToken.None
-            );
+        var expectedList = _fixture.CloneCategoryListOrdered(
+            examples, orderBy, directionRepository);
 
-        output.Data.Should().NotBeNull();
+        var output = await _fixture.GraphQLClient.SearchCategory
+            .ExecuteAsync(page, perPage, "", orderBy, directionGraphql);
+
         output.Data!.Categories.Should().NotBeNull();
-        output.Data!.Categories.Items.Should().NotBeNull();
+        output.Data!.Categories.Items.Should().NotBeNullOrEmpty();
         output.Data!.Categories.CurrentPage.Should().Be(page);
         output.Data!.Categories.PerPage.Should().Be(perPage);
         output.Data!.Categories.Total.Should().Be(examples.Count);
         output.Data!.Categories.Items.Should().HaveCount(examples.Count);
         for (int i = 0; i < output.Data!.Categories.Items.Count; i++)
         {
-            var item = output.Data.Categories.Items[i];
+            var outputItem = output.Data!.Categories.Items[i];
             var expected = expectedList[i];
-            item.Id.Should().Be(expected.Id);
-            item.Name.Should().Be(expected!.Name);
-            item.Description.Should().Be(expected.Description);
-            item.IsActive.Should().Be(expected.IsActive);
-            item.CreatedAt.Should().Be(expected.CreatedAt);
+            outputItem.Id.Should().Be(expected.Id);
+            outputItem.Name.Should().Be(expected.Name);
+            outputItem.Description.Should().Be(expected.Description);
+            outputItem.IsActive.Should().Be(expected.IsActive);
+            outputItem.CreatedAt.Should().Be(expected.CreatedAt);
         }
     }
 
