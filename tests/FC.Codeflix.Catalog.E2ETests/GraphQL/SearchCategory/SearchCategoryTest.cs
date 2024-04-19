@@ -11,69 +11,56 @@ public class SearchCategoryTest : IDisposable
     public SearchCategoryTest(SearchCategoryTestFixture fixture)
         => _fixture = fixture;
 
-    [Trait("E2E/GraphQL", "SearchCategory")]
-    [Theory(DisplayName = nameof(SearchCategory_WhenReceivesValidInput_ReturnFilteredList))]
+    [Theory(DisplayName = nameof(SearchCategory_WhenReceivesValidSearchInput_ReturnFilteredList))]
+    [Trait("E2E/GraphQL", "[Category] Search")]
     [InlineData("Action", 1, 5, 1, 1)]
     [InlineData("Horror", 1, 5, 3, 3)]
-    [InlineData("Drama", 1, 5, 1, 1)]
     [InlineData("Horror", 2, 5, 0, 3)]
-    [InlineData("Sci-fi", 1, 5, 5, 6)]
-    [InlineData("Orthers", 1, 5, 0, 0)]
+    [InlineData("Sci-fi", 1, 5, 4, 4)]
+    [InlineData("Sci-fi", 1, 2, 2, 4)]
+    [InlineData("Sci-fi", 2, 3, 1, 4)]
+    [InlineData("Others", 1, 5, 0, 0)]
     [InlineData("Robots", 1, 5, 2, 2)]
-    public async Task SearchCategory_WhenReceivesValidInput_ReturnFilteredList(
+    public async Task SearchCategory_WhenReceivesValidSearchInput_ReturnFilteredList(
         string search,
         int page,
         int perPage,
         int expectedItemsCount,
-        int expectedTotalCount
-    )
+        int expectedTotalCount)
     {
         var elasticClient = _fixture.ElasticClient;
-        var categoriesNameList = new List<string>()
-        {
+        var categoryNamesList = new List<string>() {
             "Action",
             "Horror",
             "Horror - Robots",
             "Horror - Based on Real Facts",
             "Drama",
             "Sci-fi IA",
-            "Sci-fi Future",
-            "Sci-fi",
+            "Sci-fi Space",
             "Sci-fi Robots",
-            "Sci-fi StarWars",
-            "Sci-fi StarTrek"
+            "Sci-fi Future"
         };
-        var examples = _fixture.GetCategoriesModelList(categoriesNameList);
+        var examples = _fixture.GetCategoriesModelList(categoryNamesList);
         await elasticClient.IndexManyAsync(examples);
         await elasticClient.Indices.RefreshAsync(ElasticsearchIndices.Category);
 
-        var output = await _fixture
-            .GraphQLClient
-            .SearchCategory
-            .ExecuteAsync(
-                page,
-                perPage,
-                search,
-                "",
-                SearchOrder.Asc,
-                CancellationToken.None
-            );
+        var output = await _fixture.GraphQLClient.SearchCategory
+            .ExecuteAsync(page, perPage, search, "", SearchOrder.Asc, CancellationToken.None);
 
-        output.Data.Should().NotBeNull();
         output.Data!.Categories.Should().NotBeNull();
-        output.Data.Categories.Items.Should().NotBeNull();
-        output.Data.Categories.CurrentPage.Should().Be(page);
-        output.Data.Categories.PerPage.Should().Be(perPage);
-        output.Data.Categories.Total.Should().Be(expectedTotalCount);
-        output.Data.Categories.Items.Should().HaveCount(expectedItemsCount);
-        foreach (var item in output.Data.Categories.Items)
+        output.Data!.Categories.Items.Should().NotBeNull();
+        output.Data!.Categories.CurrentPage.Should().Be(page);
+        output.Data!.Categories.PerPage.Should().Be(perPage);
+        output.Data!.Categories.Total.Should().Be(expectedTotalCount);
+        output.Data!.Categories.Items.Should().HaveCount(expectedItemsCount);
+
+        foreach (var outputItem in output.Data!.Categories.Items)
         {
-            var expected = examples.FirstOrDefault(x => x.Id == item.Id);
-            expected.Should().NotBeNull();
-            item.Name.Should().Be(expected!.Name);
-            item.Description.Should().Be(expected.Description);
-            item.IsActive.Should().Be(expected.IsActive);
-            item.CreatedAt.Should().Be(expected.CreatedAt);
+            var expected = examples.First(x => x.Id == outputItem.Id);
+            outputItem.Name.Should().Be(expected!.Name);
+            outputItem.Description.Should().Be(expected.Description);
+            outputItem.IsActive.Should().Be(expected.IsActive);
+            outputItem.CreatedAt.Should().Be(expected.CreatedAt);
         }
     }
 
